@@ -14,17 +14,16 @@ import OpenGL.GL as GL
 
 class GameHandler:
 
-    def __init__(self, _screenSize):
-        pass
-        #pg.init()
+    def __init__(self):
 
+        self.screen = None
+        self.quit = False
+        pg.init()
 
-
-    def startUp(self, _screenSize):
+    def set_up_display(self, _screenSize):
 
         self.screen = pg.display.set_mode( _screenSize, pg.OPENGL|pg.DOUBLEBUF)
-        #self.clock  = pg.time.Clock()
-
+        #self.screen.fill( (59,59,62) )
         GL.glClearColor(0.231, 0.231, 0.243, 1.0)
         GL.glEnable(GL.GL_DEPTH_TEST)
 
@@ -33,6 +32,8 @@ class GameHandler:
 
         for event in pg.event.get():
             self.eval_event( event )
+
+        return self.quit
 
 
     def eval_event(self, _event):
@@ -45,10 +46,13 @@ class GameHandler:
 
 
     def quit_game(self):
+
         pg.quit()
+        self.quit = True
 
 
     def update_display_dly_ms(self, _dly):
+
         pg.display.flip()
         pg.time.wait(_dly)
 
