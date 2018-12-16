@@ -11,11 +11,14 @@
  *   
 '''
 
-import numpy        as np
 import pygame       as pg
+import OpenGL.GL    as GL
+import numpy        as np
+import OpenGL.GL.shaders as sh
+
+import Shaders           as shs
 
 import GameHandler  as gh
-import OpenGL.GL as GL
 import ModelFactory as mf
 import Renderer     as rn
 
@@ -29,15 +32,18 @@ vertices = [
             -0.6, -0.6,  0.0, 1.0,
              0.6, -0.6,  0.0, 1.0
            ]
-
 vertices = np.array(vertices, dtype=np.float32)
 
 
 if __name__ == '__main__':
 
     myGameHandler   = gh.GameHandler( (512, 512) )
-    myModelFactory  = mf.ModelFactory()
-    myRenderer      = rn.Renderer()
+
+    myShaderFactory = rn.ShaderFactory()
+    shaderProgram   = myShaderFactory.compile_shaderProgram()
+    myRenderer      = rn.Renderer( shaderProgram )
+
+    myModelFactory  = mf.ModelFactory( shaderProgram )
     myModel         = myModelFactory.make_model_from_verts( vertices )
 
     while not myGameHandler.isQuitRequested():     

@@ -10,6 +10,7 @@
 '''
 
 import OpenGL.GL as GL
+import ctypes as ct
 
 
 class VertexObjectFactory:
@@ -17,13 +18,13 @@ class VertexObjectFactory:
     def __init__(self):
 
         self.VERT_COMPONENT_COUNT = 4
-        self.ctype     = ctypes.c_void_p(0)
+        self.ctype     = ct.c_void_p(0)
         self.vaos      = []
         self.vbos      = []
 
 
     def eval_vert_count_from_verts(self, _verts):
-        return _verts.size / self.VERT_COMPONENT_COUNT
+        return int( _verts.size / self.VERT_COMPONENT_COUNT )
 
 
     def eval_vert_count_from_indices(self, _indices):
@@ -52,7 +53,7 @@ class VertexObjectFactory:
         return vboID
 
 
-    def determine_vertexArray_byteSize(self, _verts):
+    def determine_vertexArray_byteCount(self, _verts):
         return GL.ArrayDatatype.arrayByteCount( _verts )
 
 

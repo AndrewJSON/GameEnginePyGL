@@ -39,7 +39,7 @@ class GameHandler:
     def update_display_dly_ms(self, _dly):
 
         pg.display.flip()
-        print("flip")
+        #print("flip")
         pg.time.wait(_dly)
 
 
