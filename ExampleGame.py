@@ -16,8 +16,6 @@ import OpenGL.GL    as GL
 import numpy        as np
 import OpenGL.GL.shaders as sh
 
-import Shaders           as shs
-
 import GameHandler  as gh
 import ModelFactory as mf
 import Renderer     as rn

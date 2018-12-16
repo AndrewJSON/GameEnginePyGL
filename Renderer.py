@@ -12,8 +12,6 @@
 import OpenGL.GL         as GL
 import OpenGL.GL.shaders as sh
 
-import Shaders           as shs
-
 
 class Renderer:
 
