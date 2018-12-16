@@ -14,11 +14,10 @@ class RawModel:
 	def __init__(self, _vaoID, _vertexCount):
 		self.vaoID = _vaoID
 		self.vertexCount = _vertexCount
-        self.va_size = ArrayDatatype.arrayByteCount(vertices)
 
 
 	def getVaoID(self):
-		return vaoID
+		return self.vaoID
 
 
 	def getVertexCount(self):

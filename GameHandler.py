@@ -14,18 +14,33 @@ import OpenGL.GL as GL
 
 class GameHandler:
 
-    def __init__(self):
+    def __init__(self, _screenSize):
 
         self.screen = None
-        self.quit = False
+        self.isQuitRequest = False
+
         pg.init()
+        self.set_up_display( _screenSize )
+
 
     def set_up_display(self, _screenSize):
 
-        self.screen = pg.display.set_mode( _screenSize, pg.OPENGL|pg.DOUBLEBUF)
-        #self.screen.fill( (59,59,62) )
+        self.screen = pg.display.set_mode( _screenSize, pg.OPENGL|pg.DOUBLEBUF )
+        pg.display.set_caption('OpenGL Example')
+        self.set_up_OpenGL()
+
+
+    def set_up_OpenGL(self):
+
         GL.glClearColor(0.231, 0.231, 0.243, 1.0)
         GL.glEnable(GL.GL_DEPTH_TEST)
+
+
+    def update_display_dly_ms(self, _dly):
+
+        pg.display.flip()
+        print("flip")
+        pg.time.wait(_dly)
 
 
     def eval_events(self):
@@ -33,28 +48,24 @@ class GameHandler:
         for event in pg.event.get():
             self.eval_event( event )
 
-        return self.quit
+        return self.isQuitRequest
 
 
     def eval_event(self, _event):
 
         if pg.QUIT == _event.type:
-            self.quit_game()
+            self.request_quit_game()
 
         if pg.KEYUP == _event.type and pg.K_ESCAPE == _event.key:
-            self.quit_game()
+            self.request_quit_game()
 
 
-    def quit_game(self):
-
-        pg.quit()
-        self.quit = True
+    def request_quit_game(self):
+        self.isQuitRequest = True
 
 
-    def update_display_dly_ms(self, _dly):
-
-        pg.display.flip()
-        pg.time.wait(_dly)
+    def isQuitRequested(self):
+        return self.isQuitRequest
 
 
 ''' END '''
