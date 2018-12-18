@@ -8,6 +8,8 @@
  * General description:
  *   Demonstrate and understand the basic concepts of OpenGL in Python.
  *   Makes use of PyOpenGL and Pygame (built on top of SDL).
+ *
+ *   run with MESA_GL_VERSION_OVERRIDE=4.0 python3
  *   
 '''
 
@@ -43,6 +45,7 @@ if __name__ == '__main__':
 
     myModelFactory  = mf.ModelFactory( shaderProgram )
     myModel         = myModelFactory.make_model_from_verts( vertices )
+
 
     while not myGameHandler.isQuitRequested():     
 

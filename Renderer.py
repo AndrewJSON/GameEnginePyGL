@@ -18,6 +18,7 @@ class Renderer:
     def __init__(self, _shaderProg):
         self.shaderProgram = _shaderProg
 
+
     def prepare(self):
 
         GL.glClearColor( 0.231, 0.231, 0.243, 1.0 )
@@ -43,24 +44,34 @@ class ShaderFactory:
 
     def __init__(self):
 
-        self.vertexShader   = ""
-        self.fragmentShader = ""
+        self.vertexShaderSrc   = ""
+        self.fragmentShaderSrc = ""
+
 
     def read_shaderPrograms(self):
 
         with open('vertexShader.glslv', 'r') as inFile:
-            self.vertexShader = inFile.read()
+            self.vertexShaderSrc = inFile.read()
+            #self.debug()
+            #self.vertexShaderSrc.strip( "b'")#\\r\\n" )
 
         with open('fragmentShader.glslf', 'r') as inFile:
-            self.fragmentShader = inFile.read()
+            self.fragmentShaderSrc = inFile.read()
+            #self.vertexShaderSrc.strip( "b'")#\\r\\n" )
+
+
+    def debug(self):
+        for c in self.vertexShaderSrc:
+            
+            print(hex(ord(c)),end=" ")
 
 
     def compile_shaderProgram(self):
 
         self.read_shaderPrograms()
         shaderProg = sh.compileProgram(
-            sh.compileShader(self.vertexShader, GL.GL_VERTEX_SHADER),
-            sh.compileShader(self.fragmentShader, GL.GL_FRAGMENT_SHADER)
+            sh.compileShader(self.vertexShaderSrc, GL.GL_VERTEX_SHADER),
+            sh.compileShader(self.fragmentShaderSrc, GL.GL_FRAGMENT_SHADER)
             )
 
         return shaderProg
