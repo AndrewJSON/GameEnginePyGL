@@ -13,15 +13,23 @@
  *   
 '''
 
-import pygame       as pg
-import OpenGL.GL    as GL
-import numpy        as np
+import pygame            as pg
+import OpenGL.GL         as GL
+import numpy             as np
 import OpenGL.GL.shaders as sh
+
+from   enum              import Enum
 
 import GameHandler  as gh
 import ModelFactory as mf
 import Renderer     as rn
 
+
+class Enum(tuple): __getattr__ = tuple.index
+
+VAO_IDs     = Enum(['ZERO', 'Triangles', 'NumOfVAOs'])
+Buffer_IDs  = Enum(['ZERO', 'ArrayBuffer', 'NumOfBuffers'])
+Attrib_IDs  = Enum(['vPosition'])
 
 vertices = [
             -0.6,  0.6,  0.0, 1.0,  # triangle 1

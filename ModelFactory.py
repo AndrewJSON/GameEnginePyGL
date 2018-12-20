@@ -30,8 +30,7 @@ class ModelFactory:
 
     def make_model_from_verts(self, _verts):
 
-        vaoID = self.vertObjFact.create_and_bind_VAO()
-        print("vaoID:", vaoID)
+        vaoID = self.vertObjFact.create_and_bind_VAO("triangles")
         attribList = 0
         self.store_data_in_attributeList( attribList, _verts )
         self.vertObjFact.unbind_VAO()
