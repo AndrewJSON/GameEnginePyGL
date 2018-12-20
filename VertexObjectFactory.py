@@ -17,7 +17,7 @@ class VertexObjectFactory:
 
     def __init__(self):
 
-        self.VERT_COMPONENT_COUNT = 4
+        self.VERT_COMPONENT_COUNT = 3
         self.ctype     = ct.c_void_p(0)
         self.vaos      = {}
         self.vbos      = []

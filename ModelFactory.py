@@ -21,7 +21,7 @@ class ModelFactory:
     def __init__(self, _shader):
 
         self.vertObjFact = vof.VertexObjectFactory()
-        self.VERT_COMPONENT_COUNT = 4
+        self.VERT_COMPONENT_COUNT = 3
         self.ctype     = ct.c_void_p(0)
         self.shader = _shader
 

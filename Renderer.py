@@ -24,12 +24,11 @@ class Renderer:
 
         GL.glClearColor( 0.231, 0.231, 0.243, 1.0 )
         GL.glEnable( GL.GL_DEPTH_TEST )
-        GL.glClear( GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT )
-        GL.glUseProgram( self.shaderProgram )
-
 
     def render(self, _model):
 
+        GL.glClear( GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT )
+        self.start()
         GL.glBindVertexArray( _model.getVaoID() )
         GL.glEnableVertexAttribArray( 0 );
         GL.glDrawElements( GL.GL_TRIANGLES,
@@ -39,6 +38,15 @@ class Renderer:
         #GL.glDrawArrays( GL.GL_TRIANGLES, 0, _model.getVertexCount() )
         GL.glDisableVertexAttribArray( 0 );
         GL.glBindVertexArray( 0 )
+        self.stop()
+
+
+    def start(self):
+        GL.glUseProgram( self.shaderProgram )
+
+
+    def stop(self):
+        GL.glUseProgram( 0 )
 
 
 class ShaderFactory:

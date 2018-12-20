@@ -31,17 +31,17 @@ import Renderer          as rn
 #Buffer_IDs  = Enum(['ZERO', 'ArrayBuffer', 'NumOfBuffers'])
 #Attrib_IDs  = Enum(['vPosition'])
 
-scale = 1.0
 
 vertices = np.array([
-            -0.6,  0.6,  0.0, scale,    # v0
-            -0.6, -0.6,  0.0, scale,    # v1
-             0.6, -0.6,  0.0, scale,    # v2
-             0.6,  0.6,  0.0, scale     # v3
+            -0.6,  0.6,  0.0,    # v0
+            -0.6, -0.6,  0.0,    # v1
+             0.6, -0.6,  0.0,    # v2
+             0.6,  0.6,  0.0     # v3
             ], dtype=np.float32)
 
 indices = np.array([
-            0,1,3,3,1,2
+            0,1,3,              # triangle 1
+            3,1,2               # triangle 2
             ], dtype=np.int32)
 
 
@@ -58,10 +58,9 @@ if __name__ == '__main__':
                                      vertices,
                                      indices )
 
-
+    myRenderer.prepare()
     while not myGameHandler.isQuitRequested():     
 
-        myRenderer.prepare()
         myRenderer.render( myModel )
         myGameHandler.update_display_dly_ms( 20 )
 
