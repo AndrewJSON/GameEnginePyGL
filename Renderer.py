@@ -52,18 +52,9 @@ class ShaderFactory:
 
         with open('vertexShader.glslv', 'r') as inFile:
             self.vertexShaderSrc = inFile.read()
-            #self.debug()
-            #self.vertexShaderSrc.strip( "b'")#\\r\\n" )
 
         with open('fragmentShader.glslf', 'r') as inFile:
             self.fragmentShaderSrc = inFile.read()
-            #self.vertexShaderSrc.strip( "b'")#\\r\\n" )
-
-
-    def debug(self):
-        for c in self.vertexShaderSrc:
-            
-            print(hex(ord(c)),end=" ")
 
 
     def compile_shaderProgram(self):

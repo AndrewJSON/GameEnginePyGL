@@ -9,7 +9,7 @@
  *   Demonstrate and understand the basic concepts of OpenGL in Python.
  *   Makes use of PyOpenGL and Pygame (built on top of SDL).
  *
- *   run with MESA_GL_VERSION_OVERRIDE=4.0 python3
+ *   run with MESA_GL_VERSION_OVERRIDE=4.3 python3 ExampleGame.py
  *   
 '''
 

@@ -48,19 +48,19 @@ class ModelFactory:
         vboID        = self.vertObjFact.create_and_bind_VBO( glBufferType )
         byteCount    = self.vertObjFact.determine_vertexArray_byteCount( _data )
 
-        position = GL.glGetAttribLocation(self.shader, 'position')
-        print("position:", position, "attribNum:", _attribNum)
-        #GL.glEnableVertexAttribArray(position)
+        vPosition = GL.glGetAttribLocation(self.shader, 'vPosition')
+        print("vPosition:", vPosition, "attribNum:", _attribNum)
+        GL.glEnableVertexAttribArray(vPosition)
 
         GL.glBufferData( glBufferType, byteCount, _data, GL.GL_STATIC_DRAW )
-        GL.glVertexAttribPointer( position,     # attrib list id with verts
+        GL.glVertexAttribPointer( vPosition,     # attrib list id with verts
                                   self.VERT_COMPONENT_COUNT,
                                   GL.GL_FLOAT,
                                   False,        # is data normalized?
                                   0,            # distance between vertex data
                                   self.ctype)   # start offset
 
-        #GL.glDisableVertexAttribArray(position)
+        GL.glDisableVertexAttribArray(vPosition)
         self.vertObjFact.unbind_VBO( glBufferType )
 
 
