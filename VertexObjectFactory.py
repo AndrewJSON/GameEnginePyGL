@@ -28,7 +28,7 @@ class VertexObjectFactory:
 
 
     def eval_vert_count_from_indices(self, _indices):
-        return len(_indices)
+        return _indices.size
 
 
     def create_and_bind_VAO(self, _name = "default"):
@@ -44,10 +44,11 @@ class VertexObjectFactory:
         GL.glBindVertexArray( 0 )
 
 
-    def create_and_bind_VBO(self, _glBufferType):
+    def create_and_bind_VBO(self, _glBufferType, _name = "default"):
 
         vboID = GL.glGenBuffers( 1 )
-        self.vbos.append(vboID)
+        self.vbos.append( vboID )
+        #self.vbos.update({_name : vboID})
 
         GL.glBindBuffer( _glBufferType, vboID )
         return vboID

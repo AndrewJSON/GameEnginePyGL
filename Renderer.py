@@ -11,6 +11,7 @@
 
 import OpenGL.GL         as GL
 import OpenGL.GL.shaders as sh
+import ctypes            as ct
 
 
 class Renderer:
@@ -31,11 +32,11 @@ class Renderer:
 
         GL.glBindVertexArray( _model.getVaoID() )
         GL.glEnableVertexAttribArray( 0 );
-        #GL.glDrawElements( GL.GL_TRIANGLES,
-        #                   model.getVertexCount(),
-        #                   GL.GL_UNSIGNED_INT,
-        #                   0 )
-        GL.glDrawArrays( GL.GL_TRIANGLES, 0, _model.getVertexCount() )
+        GL.glDrawElements( GL.GL_TRIANGLES,
+                           _model.getVertexCount(),
+                           GL.GL_UNSIGNED_INT,
+                           ct.c_void_p(0) ) #ct.c_void_p(0)
+        #GL.glDrawArrays( GL.GL_TRIANGLES, 0, _model.getVertexCount() )
         GL.glDisableVertexAttribArray( 0 );
         GL.glBindVertexArray( 0 )
 

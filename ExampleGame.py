@@ -18,29 +18,31 @@ import OpenGL.GL         as GL
 import numpy             as np
 import OpenGL.GL.shaders as sh
 
-from   enum              import Enum
+#from   enum              import Enum
 
-import GameHandler  as gh
-import ModelFactory as mf
-import Renderer     as rn
+import GameHandler       as gh
+import ModelFactory      as mf
+import Renderer          as rn
 
 
-class Enum(tuple): __getattr__ = tuple.index
+#class Enum(tuple): __getattr__ = tuple.index
 
-VAO_IDs     = Enum(['ZERO', 'Triangles', 'NumOfVAOs'])
-Buffer_IDs  = Enum(['ZERO', 'ArrayBuffer', 'NumOfBuffers'])
-Attrib_IDs  = Enum(['vPosition'])
+#VAO_IDs     = Enum(['ZERO', 'Triangles', 'NumOfVAOs'])
+#Buffer_IDs  = Enum(['ZERO', 'ArrayBuffer', 'NumOfBuffers'])
+#Attrib_IDs  = Enum(['vPosition'])
 
-vertices = [
-            -0.6,  0.6,  0.0, 1.0,  # triangle 1
-            -0.6, -0.6,  0.0, 1.0,
-             0.6,  0.6,  0.0, 1.0,
+scale = 1.0
 
-             0.6,  0.6,  0.0, 1.0,    # triangle 2
-            -0.6, -0.6,  0.0, 1.0,
-             0.6, -0.6,  0.0, 1.0
-           ]
-vertices = np.array(vertices, dtype=np.float32)
+vertices = np.array([
+            -0.6,  0.6,  0.0, scale,    # v0
+            -0.6, -0.6,  0.0, scale,    # v1
+             0.6, -0.6,  0.0, scale,    # v2
+             0.6,  0.6,  0.0, scale     # v3
+            ], dtype=np.float32)
+
+indices = np.array([
+            0,1,3,3,1,2
+            ], dtype=np.int32)
 
 
 if __name__ == '__main__':
@@ -52,7 +54,9 @@ if __name__ == '__main__':
     myRenderer      = rn.Renderer( shaderProgram )
 
     myModelFactory  = mf.ModelFactory( shaderProgram )
-    myModel         = myModelFactory.make_model_from_verts( vertices )
+    myModel         = myModelFactory.make_model_from_verts_and_indices( 
+                                     vertices,
+                                     indices )
 
 
     while not myGameHandler.isQuitRequested():     
