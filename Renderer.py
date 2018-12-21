@@ -41,6 +41,26 @@ class Renderer:
         self.stop()
 
 
+    def render_textured_model(self, _texModel):
+
+        model = _texModel.getRawModel()
+
+        GL.glClear( GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT )
+        self.start()
+        GL.glBindVertexArray( model.getVaoID() )
+        GL.glEnableVertexAttribArray( 0 );
+        GL.glEnableVertexAttribArray( 1 );
+        GL.glDrawElements( GL.GL_TRIANGLES,
+                           model.getVertexCount(),
+                           GL.GL_UNSIGNED_INT,
+                           ct.c_void_p(0) ) #ct.c_void_p(0)
+        #GL.glDrawArrays( GL.GL_TRIANGLES, 0, _model.getVertexCount() )
+        GL.glDisableVertexAttribArray( 0 );
+        GL.glDisableVertexAttribArray( 1 );
+        GL.glBindVertexArray( 0 )
+        self.stop()
+
+
     def start(self):
         GL.glUseProgram( self.shaderProgram )
 

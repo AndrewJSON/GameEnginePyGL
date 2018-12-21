@@ -19,7 +19,7 @@ class VertexObjectFactory:
 
         self.VERT_COMPONENT_COUNT = 3
         self.ctype     = ct.c_void_p(0)
-        self.vaos      = {}
+        self.vaos      = []
         self.vbos      = []
 
 
@@ -31,10 +31,10 @@ class VertexObjectFactory:
         return _indices.size
 
 
-    def create_and_bind_VAO(self, _name = "default"):
+    def create_and_bind_VAO(self):
 
         vaoID = GL.glGenVertexArrays( 1 )
-        self.vaos.update({_name : vaoID})
+        self.vaos.append(vaoID)
 
         GL.glBindVertexArray( vaoID )
         return vaoID

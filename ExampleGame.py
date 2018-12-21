@@ -9,7 +9,8 @@
  *   Demonstrate and understand the basic concepts of OpenGL in Python.
  *   Makes use of PyOpenGL and Pygame (built on top of SDL).
  *
- *   run with MESA_GL_VERSION_OVERRIDE=4.3 python3 ExampleGame.py
+ *   run with:
+ *   MESA_GL_VERSION_OVERRIDE=4.3 python3 ExampleGame.py
  *   
 '''
 
@@ -44,6 +45,12 @@ indices = np.array([
             3,1,2               # triangle 2
             ], dtype=np.int32)
 
+texCoords = np.array([
+            0.0, 0.0,
+            0.0, 1.0,
+            1.0, 1.0,
+            1.0, 0.0
+            ], dtype=np.float32)
 
 if __name__ == '__main__':
 
@@ -54,14 +61,21 @@ if __name__ == '__main__':
     myRenderer      = rn.Renderer( shaderProgram )
 
     myModelFactory  = mf.ModelFactory( shaderProgram )
-    myModel         = myModelFactory.make_model_from_verts_and_indices( 
+    #myModel         = myModelFactory.make_model_from_verts_and_indices( 
+                                     #vertices,
+                                     #indices )
+
+    myTModel        = myModelFactory.make_textured_model( 
                                      vertices,
-                                     indices )
+                                     indices,
+                                     texCoords, 
+                                    "01-SciFi-tiles.png" )
 
     myRenderer.prepare()
     while not myGameHandler.isQuitRequested():     
 
-        myRenderer.render( myModel )
+        myRenderer.render_textured_model( myTModel )
+        #myRenderer.render( myModel )
         myGameHandler.update_display_dly_ms( 20 )
 
         myGameHandler.eval_events()
