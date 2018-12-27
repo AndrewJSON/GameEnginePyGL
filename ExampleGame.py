@@ -24,6 +24,7 @@ import OpenGL.GL.shaders as sh
 import GameHandler       as gh
 import ModelFactory      as mf
 import Renderer          as rn
+import ShaderFactory     as sf
 
 
 #class Enum(tuple): __getattr__ = tuple.index
@@ -56,7 +57,7 @@ if __name__ == '__main__':
 
     myGameHandler   = gh.GameHandler( (512, 512) )
 
-    myShaderFactory = rn.ShaderFactory()
+    myShaderFactory = sf.ShaderFactory()
     shaderProgram   = myShaderFactory.compile_shaderProgram()
     myRenderer      = rn.Renderer( shaderProgram )
 

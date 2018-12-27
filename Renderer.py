@@ -10,7 +10,6 @@
 '''
 
 import OpenGL.GL         as GL
-import OpenGL.GL.shaders as sh
 import ctypes            as ct
 
 
@@ -69,32 +68,7 @@ class Renderer:
         GL.glUseProgram( 0 )
 
 
-class ShaderFactory:
 
-    def __init__(self):
-
-        self.vertexShaderSrc   = ""
-        self.fragmentShaderSrc = ""
-
-
-    def read_shaderPrograms(self):
-
-        with open('vertexShader.glslv', 'r') as inFile:
-            self.vertexShaderSrc = inFile.read()
-
-        with open('fragmentShader.glslf', 'r') as inFile:
-            self.fragmentShaderSrc = inFile.read()
-
-
-    def compile_shaderProgram(self):
-
-        self.read_shaderPrograms()
-        shaderProg = sh.compileProgram(
-            sh.compileShader(self.vertexShaderSrc, GL.GL_VERTEX_SHADER),
-            sh.compileShader(self.fragmentShaderSrc, GL.GL_FRAGMENT_SHADER)
-            )
-
-        return shaderProg
 
 
 ''' END '''
