@@ -29,7 +29,8 @@ class ShaderFactory:
         self.bindAttributes()
         self.linkAndValidateProgram()
 
-        return self.programID
+        #return self.programID
+        return self.createShaderProgram()
 
 
     def createProgramID(self):
@@ -79,6 +80,10 @@ class ShaderFactory:
 
     def bindAttribute(self, _attribute, _variableName):
         GL.glBindAttribLocation( self.programID, _attribute, _variableName )
+
+
+    def createShaderProgram(self):
+        return sp.ShaderProgram( self.programID, self.shaderIDs )
 
 
 ''' END '''

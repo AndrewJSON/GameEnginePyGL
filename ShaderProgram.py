@@ -9,6 +9,8 @@
  *   xxx
 '''
 
+import OpenGL.GL            as GL
+
 
 class ShaderProgram:
 

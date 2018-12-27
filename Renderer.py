@@ -45,7 +45,7 @@ class Renderer:
         model = _texModel.getRawModel()
 
         GL.glClear( GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT )
-        self.start()
+        self.shaderProgram.start()
         GL.glBindVertexArray( model.getVaoID() )
         GL.glEnableVertexAttribArray( 0 );
         GL.glEnableVertexAttribArray( 1 );
@@ -57,7 +57,7 @@ class Renderer:
         GL.glDisableVertexAttribArray( 0 );
         GL.glDisableVertexAttribArray( 1 );
         GL.glBindVertexArray( 0 )
-        self.stop()
+        self.shaderProgram.stop()
 
 
     def render_entity(self, _entity):

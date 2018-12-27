@@ -58,10 +58,10 @@ if __name__ == '__main__':
     myGameHandler   = gh.GameHandler( (512, 512) )
 
     myShaderFactory = sf.ShaderFactory()
-    shaderProgram   = myShaderFactory.compile_shaderProgram()
-    myRenderer      = rn.Renderer( shaderProgram )
+    myShaderProgram = myShaderFactory.compile_shaderProgram()
+    myRenderer      = rn.Renderer( myShaderProgram )
 
-    myModelFactory  = mf.ModelFactory( shaderProgram )
+    myModelFactory  = mf.ModelFactory( myShaderProgram )
     #myModel         = myModelFactory.make_model_from_verts_and_indices( 
                                      #vertices,
                                      #indices )
@@ -81,6 +81,7 @@ if __name__ == '__main__':
 
         myGameHandler.eval_events()
 
+    myShaderProgram.cleanUp()
     #myModelFactory.cleanUp()
     pg.quit()
 
