@@ -15,15 +15,25 @@ import ShaderProgram     as sp
 
 class ShaderFactory:
 
+    def __init__(self):
+
+        self.programID = None
+        self.shaderIDs = None
+
     def compile_shaderProgram(self):
 
-        programID = GL.glCreateProgram()
-        shaderIDs = self.compileShaders()
+        self.createProgramID()
+        self.compileShaders()
 
-        self.attachShaders( programID, shaderIDs )
-        self.linkAndValidateProgram( programID )
+        self.attachShaders()
+        self.bindAttributes()
+        self.linkAndValidateProgram()
 
-        return programID
+        return self.programID
+
+
+    def createProgramID(self):
+        self.programID = GL.glCreateProgram()
 
 
     def compileShaders(self):
@@ -31,7 +41,7 @@ class ShaderFactory:
         vs = self.compileShader( 'vertexShader.glslv', GL.GL_VERTEX_SHADER )
         fs = self.compileShader( 'fragmentShader.glslf', GL.GL_FRAGMENT_SHADER )
 
-        return [vs, fs]
+        self.shaderIDs = [vs, fs]
 
 
     def compileShader(self, _fileName, _glShaderType):
@@ -50,20 +60,25 @@ class ShaderFactory:
         return shaderSrc
 
 
-    def attachShaders(self, _progID, _shaderIDs):
+    def attachShaders(self):
 
-        for shaderID in _shaderIDs:
-            GL.glAttachShader( _progID, shaderID )
-
-
-    def linkAndValidateProgram(self, _progID):
-
-        GL.glLinkProgram( _progID )
-        GL.glValidateProgram( _progID )
+        for shaderID in self.shaderIDs:
+            GL.glAttachShader( self.programID, shaderID )
 
 
-    def make_shaderProgramInstance(self, _progID):
-        return sp.ShaderProgram( _progID )
+    def linkAndValidateProgram(self):
+
+        GL.glLinkProgram( self.programID )
+        GL.glValidateProgram( self.programID )
+
+
+    def bindAttributes(self):
+
+        self.bindAttribute( 0, "vPosition" )
+
+
+    def bindAttribute(self, _attribute, _variableName):
+        GL.glBindAttribLocation( self.programID, _attribute, _variableName )
 
 
 ''' END '''
