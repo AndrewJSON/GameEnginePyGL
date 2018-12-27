@@ -11,56 +11,59 @@
 
 import OpenGL.GL         as GL
 import OpenGL.GL.shaders as sh
+import ShaderProgram     as sp
 
 class ShaderFactory:
 
-    def __init__(self):
-
-        self.vertexShaderSrc   = ""
-        self.fragmentShaderSrc = ""
-
-
-    def read_shaderPrograms(self):
-
-        with open('vertexShader.glslv', 'r') as inFile:
-            self.vertexShaderSrc = inFile.read()
-
-        with open('fragmentShader.glslf', 'r') as inFile:
-            self.fragmentShaderSrc = inFile.read()
-
-
     def compile_shaderProgram(self):
 
-        self.read_shaderPrograms()
-        shaderProg = sh.compileProgram(
-            sh.compileShader(self.vertexShaderSrc, GL.GL_VERTEX_SHADER),
-            sh.compileShader(self.fragmentShaderSrc, GL.GL_FRAGMENT_SHADER)
-            )
+        programID = GL.glCreateProgram()
+        shaderIDs = self.compileShaders()
 
-        return shaderProg
+        self.attachShaders( programID, shaderIDs )
+        self.linkAndValidateProgram( programID )
 
-
-
-class ShaderProgram:
-
-    def __init__(self, _progID):
-        self.progID = _progID
-        
-
-    def get_uniformLocation(self, _uniformName):
-        return GL.glGetUniformLocation(self.progID, _uniformName)
+        return programID
 
 
-    def loadFloat(self, _location, _value):
-        GL.glUniform1f( _location, _value )
+    def compileShaders(self):
+
+        vs = self.compileShader( 'vertexShader.glslv', GL.GL_VERTEX_SHADER )
+        fs = self.compileShader( 'fragmentShader.glslf', GL.GL_FRAGMENT_SHADER )
+
+        return [vs, fs]
 
 
-    def loadVector(self, _location, _vector):
-        GL.glUniform3f( _location, _vector )
+    def compileShader(self, _fileName, _glShaderType):
+
+        shaderSrc = self.read_shaderSource( _fileName )
+        shaderID  = sh.compileShader( shaderSrc, _glShaderType)
+
+        return shaderID
 
 
-    def loadMatrix(self, _location, _matrix):
-        GL.glUniformMatrix4( _location, false, _matrix )
+    def read_shaderSource(self, _fileName):
+
+        with open(_fileName, 'r') as inFile:
+            shaderSrc = inFile.read()
+
+        return shaderSrc
+
+
+    def attachShaders(self, _progID, _shaderIDs):
+
+        for shaderID in _shaderIDs:
+            GL.glAttachShader( _progID, shaderID )
+
+
+    def linkAndValidateProgram(self, _progID):
+
+        GL.glLinkProgram( _progID )
+        GL.glValidateProgram( _progID )
+
+
+    def make_shaderProgramInstance(self, _progID):
+        return sp.ShaderProgram( _progID )
 
 
 ''' END '''
