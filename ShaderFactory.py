@@ -29,7 +29,6 @@ class ShaderFactory:
         self.bindAttributes()
         self.linkAndValidateProgram()
 
-        #return self.programID
         return self.createShaderProgram()
 
 
@@ -76,6 +75,7 @@ class ShaderFactory:
     def bindAttributes(self):
 
         self.bindAttribute( 0, "vPosition" )
+        self.bindAttribute( 1, "texCoords" )
 
 
     def bindAttribute(self, _attribute, _variableName):

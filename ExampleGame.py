@@ -75,8 +75,10 @@ if __name__ == '__main__':
     myRenderer.prepare()
     while not myGameHandler.isQuitRequested():     
 
+        myShaderProgram.start()
         myRenderer.render_textured_model( myTModel )
         #myRenderer.render( myModel )
+        myShaderProgram.stop()
         myGameHandler.update_display_dly_ms( 20 )
 
         myGameHandler.eval_events()
