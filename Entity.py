@@ -11,24 +11,10 @@
 
 class Entity:
 
-	def __init__(self, _texModel, _pos, _rot, _scale):
+    def __init__(self, _texModel, _tMat):
 
-		self.texturedModel  = _texModel
-        self.position       = _pos      # 3D vector / numpy array
-		self.rotation       = _rot      # 3D vector / numpy array
-        self.scale          = _scale    # scalar
-
-
-    def getTexModel(self):
-        return self.texturedModel
-
-
-    def increasePosition(self, _deltaPos):
-        self.position += _deltaPos
-
-
-    def increaseRotation(self, _deltaRot):
-        self.rotation += _deltaRot
+        self.texturedModel        = _texModel
+        self.transformationMatrix = _tMat
 
 
 ''' END '''

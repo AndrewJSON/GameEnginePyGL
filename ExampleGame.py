@@ -25,6 +25,8 @@ import GameHandler       as gh
 import ModelFactory      as mf
 import Renderer          as rn
 import ShaderFactory     as sf
+import Entity            as ent
+import MatrixFactory     as tmf
 
 
 #class Enum(tuple): __getattr__ = tuple.index
@@ -53,6 +55,9 @@ texCoords = np.array([
             1.0, 0.0
             ], dtype=np.float32)
 
+translation = np.array([.5,.5,0.])
+scale       = np.array([1.0,1.0,0.1])
+
 if __name__ == '__main__':
 
     myGameHandler   = gh.GameHandler( (512, 512) )
@@ -60,6 +65,8 @@ if __name__ == '__main__':
     myShaderFactory = sf.ShaderFactory()
     myShaderProgram = myShaderFactory.compile_shaderProgram()
     myRenderer      = rn.Renderer( myShaderProgram )
+    myMatrixFactory = tmf.MatrixFactory(4)
+
 
     myModelFactory  = mf.ModelFactory( myShaderProgram )
     #myModel         = myModelFactory.make_model_from_verts_and_indices( 
@@ -71,13 +78,17 @@ if __name__ == '__main__':
                                      indices,
                                      texCoords, 
                                     "01-SciFi-tiles.png" )
+    myTlMatrix      = myMatrixFactory.createTranslationMatrix( translation )
+    myScMatrix      = myMatrixFactory.createScaleMatrix( scale )
+    myEntity        = ent.Entity( myTModel, myScMatrix )
+
 
     myRenderer.prepare()
     while not myGameHandler.isQuitRequested():     
 
         myShaderProgram.start()
-        myRenderer.render_textured_model( myTModel )
-        #myRenderer.render( myModel )
+        #myRenderer.render_textured_model( myTModel )
+        myRenderer.render_entity( myEntity, myShaderProgram )
         myShaderProgram.stop()
         myGameHandler.update_display_dly_ms( 20 )
 

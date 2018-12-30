@@ -51,6 +51,7 @@ class Renderer:
         GL.glBindVertexArray( rawModel.getVaoID() )
         GL.glEnableVertexAttribArray( 0 )
         GL.glEnableVertexAttribArray( 1 )
+        #GL.glBindTexture(GL.GL_TEXTURE_2D, texID)
         GL.glDrawElements( GL.GL_TRIANGLES,
                            rawModel.getVertexCount(),
                            GL.GL_UNSIGNED_INT,
@@ -60,25 +61,28 @@ class Renderer:
         GL.glBindVertexArray( 0 )
 
 
-    def render_entity(self, _entity):
+    def render_entity(self, _entity, _shader):
 
-        texModel = _entity.getTexModel()
-        model = texModel.getRawModel()
+        texModel = _entity.texturedModel
+        modelTex = texModel.modelTexture
+        texID    = modelTex.texID
+        rawModel = texModel.getRawModel()
+        tMat     = _entity.transformationMatrix
 
         GL.glClear( GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT )
-        self.start()
-        GL.glBindVertexArray( model.getVaoID() )
+
+        GL.glBindVertexArray( rawModel.getVaoID() )
         GL.glEnableVertexAttribArray( 0 )
         GL.glEnableVertexAttribArray( 1 )
+        self.shaderProgram.loadTransformationMatrix( tMat )
+        #GL.glBindTexture(GL.GL_TEXTURE_2D, texID)
         GL.glDrawElements( GL.GL_TRIANGLES,
-                           model.getVertexCount(),
+                           rawModel.getVertexCount(),
                            GL.GL_UNSIGNED_INT,
-                           ct.c_void_p(0) ) #ct.c_void_p(0)
-        #GL.glDrawArrays( GL.GL_TRIANGLES, 0, _model.getVertexCount() )
+                           ct.c_void_p(0) )
         GL.glDisableVertexAttribArray( 0 )
         GL.glDisableVertexAttribArray( 1 )
         GL.glBindVertexArray( 0 )
-        self.stop()
 
 
     def start(self):

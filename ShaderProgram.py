@@ -25,10 +25,10 @@ class ShaderProgram:
 
     def updateUniformLocations(self):
 
-        uniformNames = ["transforMatrix"]
+        uniformVariableNames = ["transforMatrix"]
 
-        for uName in uniformNames:
-            self.uLocations[ uName] = self.get_uniformLocation( uName )
+        for uVarName in uniformVariableNames:
+            self.uLocations[ uVarName] = self.get_uniformLocation( uVarName )
 
 
     def start(self):
@@ -43,6 +43,12 @@ class ShaderProgram:
         self.loadMatrix( "transforMatrix", _tMatrix )
 
 
+    def loadMatrix(self, _uVarName, _matrix):
+
+        locationIndex = self.uLocations[ _uVarName ]
+        GL.glUniformMatrix4fv( locationIndex, 1, GL.GL_FALSE, _matrix )
+
+
     def get_uniformLocation(self, _uName):
         return GL.glGetUniformLocation(self.programID, _uName)
 
@@ -53,12 +59,6 @@ class ShaderProgram:
 
     def loadVector(self, _location, _vector):
         GL.glUniform3f( _location, _vector )
-
-
-    def loadMatrix(self, _location, _matrix):
-
-        locationIndex = self.uLocations[ "transforMatrix" ]
-        GL.glUniformMatrix4( locationIndex, false, _matrix )
 
 
     def cleanUp(self):

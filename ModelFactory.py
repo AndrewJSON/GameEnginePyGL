@@ -108,11 +108,12 @@ class ModelFactory:
         width = textureSurface.get_width()
         height = textureSurface.get_height()
     
-        #GL.glEnable(GL.GL_TEXTURE_2D)
-        #texID = GL.glGenTextures(1)
-        #self.textures.append(texID)
-
+        GL.glEnable(GL.GL_TEXTURE_2D)
+        texID = GL.glGenTextures(1)
         #GL.glBindTexture(GL.GL_TEXTURE_2D, texID)
+
+        self.textures.append(texID)
+
         GL.glTexImage2D(GL.GL_TEXTURE_2D,
                         0,
                         GL.GL_RGB,
@@ -128,7 +129,8 @@ class ModelFactory:
         GL.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST)
         GL.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST)
 
-        return 6#texID
+        #GL.glBindTexture(GL.GL_TEXTURE_2D, texID)
+        return texID
 
 
     def offset(self, _off):
