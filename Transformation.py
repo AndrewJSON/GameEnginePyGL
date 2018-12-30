@@ -15,18 +15,41 @@ import numpy as np
 class Transformation:
 
     def __init__(self, _dimension):
-        self.matrixDimension = _dimension
-        self.onesVector = np.ones(_dimension, dtype=float)
+        self.identityMatrix  = self.createIdentityMatrix( _dimension )
+
+
+    def createIdentityMatrix(self, _dimension):
+
+        identity = np.identity( _dimension, dtype=float )
+        return np.matrix( identity, copy=False )
 
 
     def createTransforMatrix(self, _translation, _rotation, _scale):
+
         pass
 
 
-    def createIdentityMatrix(self):
+    def createTranslationMatrix(self, _translation):
 
-        identity = np.identity( self.dimension, dtype=float )
-        return np.matrix( identity, copy=False )
+        translationMatrix = np.matrix( self.identityMatrix )
+        self.addTranslationToGivenMatrix( _translation, translationMatrix )
+
+        return translationMatrix
+
+
+    def addTranslationToGivenMatrix(self, _translation, _matrix):
+
+        rowElementCount = _translation.shape[0]
+        asColumnVector = _translation.reshape(( rowElementCount ,1))
+        _matrix[ :rowElementCount, -1] = asColumnVector
+
+
+    def createTranslationMatrix(self, _translation):
+
+        translationMatrix = np.matrix( self.identityMatrix )
+        self.addTranslationToGivenMatrix( _translation, translationMatrix )
+
+        return translationMatrix
 
 
     def addTranslationToGivenMatrix(self, _translation, _matrix):
@@ -43,18 +66,12 @@ class Transformation:
         return asColumnVector
 
 
-    def castVectorToMatrixDimension(self, _vector):
-
-        horizontalElementCount = _translation.shape[0]
-        diff = self.matrixDimension - horizontalElementCount
-        filledUpWithOnes = np.concatenate( (_vector, self.onesVector[-diff:]) )
-        return filledUpWithOnes
-
-
 if __name__ == '__main__':
 
     myT = Transformation(4)
+    #print(myT.identityMatrix)
 
+'''
     a = np.matrix('1 2; 3 4')
     b = np.identity(2, dtype=float)
 
@@ -74,7 +91,7 @@ if __name__ == '__main__':
     #m[:, -1] = tt
     myT.addTranslationToGivenMatrix( t, m )
     print("updated to translation matrix:\n", m)
-
+'''
 
 ''' END '''
 
