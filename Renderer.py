@@ -75,6 +75,7 @@ class Renderer:
         GL.glEnableVertexAttribArray( 0 )
         GL.glEnableVertexAttribArray( 1 )
         self.shaderProgram.loadTransformationMatrix( tMat )
+        #self.shaderProgram.loadFloat( "uniScale", 0.8 )
         #GL.glBindTexture(GL.GL_TEXTURE_2D, texID)
         GL.glDrawElements( GL.GL_TRIANGLES,
                            rawModel.getVertexCount(),

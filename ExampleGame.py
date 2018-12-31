@@ -18,6 +18,7 @@ import pygame            as pg
 import OpenGL.GL         as GL
 import numpy             as np
 import OpenGL.GL.shaders as sh
+import pprint            as pp
 
 #from   enum              import Enum
 
@@ -55,10 +56,15 @@ texCoords = np.array([
             1.0, 0.0
             ], dtype=np.float32)
 
-translation = np.array([.5,.5,0.])
-scale       = np.array([1.0,1.0,0.1])
+translation = np.array([0.5,0.5,0.5])
+scale       = np.array([0.8,0.6,1.0])
+rotation    = np.array([0.0,0.0,30.0])
+
 
 if __name__ == '__main__':
+
+    #float_formatter = lambda x: "%+.3f" % x
+    #np.set_printoptions(formatter={'float_kind':float_formatter})
 
     myGameHandler   = gh.GameHandler( (512, 512) )
 
@@ -78,10 +84,14 @@ if __name__ == '__main__':
                                      indices,
                                      texCoords, 
                                     "01-SciFi-tiles.png" )
-    myTlMatrix      = myMatrixFactory.createTranslationMatrix( translation )
-    myScMatrix      = myMatrixFactory.createScaleMatrix( scale )
-    myEntity        = ent.Entity( myTModel, myScMatrix )
+    myTlM           = myMatrixFactory.createTranslationMatrix( translation )
+    pp.pprint( myTlM )
+    myScM           = myMatrixFactory.createScaleMatrix( scale )
+    pp.pprint( myScM )
+    myRtM           = myMatrixFactory.createExtrinsicRotationMatrix( rotation )
+    pp.pprint( myRtM )
 
+    myEntity        = ent.Entity( myTModel, myRtM )
 
     myRenderer.prepare()
     while not myGameHandler.isQuitRequested():     
