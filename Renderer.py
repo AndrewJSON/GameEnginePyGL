@@ -67,7 +67,7 @@ class Renderer:
         modelTex = texModel.modelTexture
         texID    = modelTex.texID
         rawModel = texModel.getRawModel()
-        tMat     = _entity.transformationMatrix
+        tMat     = _entity.getTransformationMatrix()
 
         GL.glClear( GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT )
 

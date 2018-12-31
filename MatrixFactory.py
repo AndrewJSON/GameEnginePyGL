@@ -23,7 +23,7 @@ class MatrixFactory:
         return np.matrix( self.identity )
 
 
-    def createTranslationMatrix(self, _translation):
+    def createTranslationMatrix_expected(self, _translation):
 
         rowElementCount = _translation.shape[0]
         translatAsColumnVector = _translation.reshape(( rowElementCount ,1))
@@ -31,6 +31,18 @@ class MatrixFactory:
         newMatrix = self.createNewIdentityMatrix()
         # paste translat factors to rightmost matrix column from top row down:
         newMatrix[ :rowElementCount, -1] = translatAsColumnVector
+
+        return newMatrix
+
+
+    def createTranslationMatrix(self, _translation):
+
+        rowElementCount = _translation.shape[0]
+        translatAsColumnVector = _translation.reshape(( rowElementCount ,1))
+
+        newMatrix = self.createNewIdentityMatrix()
+        # paste translat factors to rightmost matrix column from top row down:
+        newMatrix[-1,0:rowElementCount] = _translation
 
         return newMatrix
 

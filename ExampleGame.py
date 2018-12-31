@@ -56,10 +56,23 @@ texCoords = np.array([
             1.0, 0.0
             ], dtype=np.float32)
 
-translation = np.array([0.5,0.5,0.5])
-scale       = np.array([0.8,0.6,1.0])
-rotation    = np.array([0.0,0.0,30.0])
+translation = np.array([0.3,-0.4,0.2])
+tx = translation[0]; ty = translation[1]; tz = translation[2];
+scale       = np.array([0.8,0.4,1.0])
+rotation    = np.array([30.0,0.0,0.0])
+dRot        = np.array([0.0,0.0,0.3])
 
+myM1        = np.matrix([[1.0, 0.0, 0.0, 0.4],
+                         [0.0, 1.0, 0.0, 0.4],
+                         [0.0, 0.0, 1.0, 0.0],
+                         [0.0, 0.0, 0.0, 0.0]])
+
+myM2        = np.matrix([[1.0, 0.0, 0.0, 0.0],
+                         [0.0, 1.0, 0.0, 0.0],
+                         [0.0, 0.0, 1.0, 0.0],
+                         [ tx,  ty,  tz, 1.0]])
+
+myM = myM2
 
 if __name__ == '__main__':
 
@@ -91,13 +104,16 @@ if __name__ == '__main__':
     myRtM           = myMatrixFactory.createExtrinsicRotationMatrix( rotation )
     pp.pprint( myRtM )
 
-    myEntity        = ent.Entity( myTModel, myRtM )
+    myEntity        = ent.Entity( myTModel, myMatrixFactory )
+    pp.pprint( myM )
+    myEntity.transformationMatrix = myTlM
 
     myRenderer.prepare()
     while not myGameHandler.isQuitRequested():     
 
         myShaderProgram.start()
         #myRenderer.render_textured_model( myTModel )
+        #myEntity.increaseRotation( dRot )
         myRenderer.render_entity( myEntity, myShaderProgram )
         myShaderProgram.stop()
         myGameHandler.update_display_dly_ms( 20 )
